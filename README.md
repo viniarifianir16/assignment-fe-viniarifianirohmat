@@ -16,6 +16,6 @@
 - React Icons
 
 ## Picture
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/c4c90ae8-39b8-4324-830f-b722999bf31b" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a1609cbc-1cc3-4772-8ef2-4b615a2ac3dd" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/29245366-8cd4-4de7-ba9c-ca21d7a6b931" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/4489679f-e9fd-4008-b9b2-9934d54ccafc" />
 
