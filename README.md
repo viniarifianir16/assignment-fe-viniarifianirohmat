@@ -1,5 +1,4 @@
 # Product Page
-Responsive Mobile
 
 ## Start Project
 - git clone 
@@ -9,6 +8,7 @@ Responsive Mobile
 - Search Product
 - Filter Category
 - Sort Price 
+- Responsive Mobile
 
 ## Library
 - TailwindCSS
