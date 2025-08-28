@@ -51,7 +51,6 @@ export default function Home() {
           const newCats = prev.includes(cat)
             ? prev.filter((c) => c !== cat)
             : [...prev, cat];
-
           return newCats;
         });
       }

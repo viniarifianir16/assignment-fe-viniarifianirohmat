@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { fetchProducts } from "@/lib/fetchProduct";
 import { Badge } from "flowbite-react";
+import { FaStar } from "react-icons/fa";
+import { TbCategoryFilled } from "react-icons/tb";
 
 interface Props {
   params: {
@@ -31,15 +33,28 @@ export default async function ProductDetail({ params }: Props) {
           <p className="text-gray-700 mt-2 dark:text-white">
             {data.description}
           </p>
-          <Badge className="bg-blue-200 w-fit my-2">
-            <p className="text-xl font-semibold text-blue-600 p-2">
-              ${data.price}
-            </p>
-          </Badge>
-          <p className="mt-2">
-            Rating: {data.rating.rate} ({data.rating.count} Reviews)
-          </p>
-          <p className="mt-2 capitalize">Category: {data.category}</p>
+          <div className="mt-2 flex flex-row items-center justify-between gap-2">
+            <div>
+              <div className="mt-2 flex flex-row items-center gap-2 capitalize">
+                <TbCategoryFilled className="text-teal-600 text-lg" />
+                {data.category}
+              </div>
+              <div className="mt-2 flex flex-row items-center gap-2">
+                <FaStar className="text-yellow-400 text-lg" />
+                <p className="text-lg font-semibold">{data.rating.rate}</p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {" "}
+                  ({data.rating.count} Reviews)
+                </p>
+              </div>
+            </div>
+
+            <Badge className="bg-blue-200 w-fit my-2">
+              <p className="text-2xl font-semibold text-blue-600 p-2">
+                ${data.price}
+              </p>
+            </Badge>
+          </div>
         </div>
       </div>
     </div>
