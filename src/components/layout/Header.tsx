@@ -16,7 +16,7 @@ export function Header() {
     <Navbar
       fluid
       rounded
-      className="shadow shadow-gray-300 dark:shadow-gray-600"
+      className="fixed w-full z-99 top-0 p-5 shadow shadow-gray-300 dark:shadow-gray-600"
     >
       <NavbarBrand as={Link} href="#">
         <Image
