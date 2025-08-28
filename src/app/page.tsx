@@ -96,8 +96,8 @@ export default function Home() {
 
   return (
     <Container>
-      <h1 className="text-center">PRODUCTS</h1>
-      <hr className="mb-6 mt-3 mx-auto w-28 h-1 bg-gradient-to-r from-blue-500 via-teal-500 to-cyan-500 rounded-full border-0" />
+      {/* <h1 className="text-center">PRODUCTS</h1>
+      <hr className="mb-6 mt-3 mx-auto w-28 h-1 bg-gradient-to-r from-blue-500 via-teal-500 to-cyan-500 rounded-full border-0" /> */}
 
       <div className="mb-5 flex flex-col items-end gap-2 lg:flex-row lg:items-center lg:justify-between">
         {/* Search */}
