@@ -13,7 +13,11 @@ import { MdMessage } from "react-icons/md";
 
 export function Header() {
   return (
-    <Navbar fluid rounded className="shadow shadow-gray-300">
+    <Navbar
+      fluid
+      rounded
+      className="shadow shadow-gray-300 dark:shadow-gray-600"
+    >
       <NavbarBrand as={Link} href="#">
         <Image
           src="/vercel.svg"

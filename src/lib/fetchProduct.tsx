@@ -1,3 +1,8 @@
+export interface Rating {
+  rate: number;
+  count: number;
+}
+
 export interface Product {
   id: number;
   title: string;
@@ -5,8 +10,7 @@ export interface Product {
   description: string;
   category: string;
   image: string;
-  rate: number;
-  count: number;
+  rating: Rating;
 }
 
 export async function fetchProducts(): Promise<Product[]> {
