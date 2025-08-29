@@ -3,7 +3,7 @@
 import { ProductCard } from "@/components/card/ProductCard";
 import { Container } from "@/components/layout/Container";
 import { fetchProducts, Product } from "@/lib/fetchProduct";
-import { Button, TextInput } from "flowbite-react";
+import { Button, Label, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { MdFilterAlt } from "react-icons/md";
@@ -16,6 +16,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [filterLoading, setFilterLoading] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
+  const [sortBy, setSortBy] = useState("default");
 
   const [minPrice, setMinPrice] = useState<number | null>(null);
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
@@ -67,22 +68,28 @@ export default function Home() {
   // List Category
   const categories = ["All", ...new Set(products.map((p) => p.category))];
 
-  // Filter Products
-  const filteredProducts = products.filter((p) => {
-    const matchCategory =
-      categoriesSelected.length > 0
-        ? categoriesSelected.includes(p.category)
+  // Filter + Sort Products
+  const filteredProducts = products
+    .filter((p) => {
+      const matchCategory =
+        categoriesSelected.length > 0
+          ? categoriesSelected.includes(p.category)
+          : true;
+
+      const matchMin = minPrice !== null ? Number(p.price) >= minPrice : true;
+      const matchMax = maxPrice !== null ? Number(p.price) <= maxPrice : true;
+
+      const matchSearch = search
+        ? p.title.toLowerCase().includes(search.toLowerCase())
         : true;
 
-    const matchMin = minPrice !== null ? Number(p.price) >= minPrice : true;
-    const matchMax = maxPrice !== null ? Number(p.price) <= maxPrice : true;
-
-    const matchSearch = search
-      ? p.title.toLowerCase().includes(search.toLowerCase())
-      : true;
-
-    return matchCategory && matchMin && matchMax && matchSearch;
-  });
+      return matchCategory && matchMin && matchMax && matchSearch;
+    })
+    .sort((a, b) => {
+      if (sortBy === "asc") return Number(a.price) - Number(b.price);
+      if (sortBy === "desc") return Number(b.price) - Number(a.price);
+      return 0;
+    });
 
   // Loading
   if (loading) {
@@ -116,19 +123,27 @@ export default function Home() {
           Filter <MdFilterAlt className="ml-2" />
         </Button>
 
-        {/* Sidebar filter */}
+        {/* Sidebar Filter */}
         {showFilter && (
           <Sidebar
             aria-label="Filter Sidebar"
-            className="fixed bottom-0 right-0 shadow-lg shadow-gray-400 w-3/4 lg:w-1/4"
+            className="fixed bottom-0 right-0 top-20 shadow-lg shadow-gray-400 w-3/4 lg:w-1/4"
           >
             <SidebarItems>
               <div className="flex flex-row items-center justify-between">
                 <h3 className="font-bold">Filter</h3>
-                <IoMdClose onClick={() => setShowFilter(!showFilter)} />
+                <IoMdClose
+                  onClick={() => setShowFilter(!showFilter)}
+                  className="text-xl"
+                />
               </div>
               <SidebarItemGroup>
-                <p>Category</p>
+                {/* Filter Category */}
+                <div className="mb-2 block">
+                  <Label htmlFor="category" className="text-md">
+                    Category
+                  </Label>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {categories.map((cat) => {
                     const isActive =
@@ -140,7 +155,7 @@ export default function Home() {
                       <Button
                         key={cat}
                         onClick={() => handleFilter(cat)}
-                        className={`gap-2 capitalize ${
+                        className={`gap-2 text-sm capitalize ${
                           isActive
                             ? "bg-blue-500 text-white"
                             : "bg-gray-100 text-black"
@@ -152,11 +167,33 @@ export default function Home() {
                   })}
                 </div>
 
-                <p className="mt-5">Price</p>
-                <div className="flex flex-row items-center gap-2">
+                {/* Sort Price */}
+                <div className="mb-2 mt-4 block">
+                  <Label htmlFor="sort" className="text-md">
+                    Sort Price
+                  </Label>
+                </div>
+                <Select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="mt-2"
+                >
+                  <option value="default">Default</option>
+                  <option value="asc">Harga: Termurah</option>
+                  <option value="desc">Harga: Termahal</option>
+                </Select>
+
+                {/* Price Range */}
+                <div className="mb-2 mt-4 block">
+                  <Label htmlFor="range" className="text-md">
+                    Price Range
+                  </Label>
+                </div>
+                <div className="flex flex-row items-center gap-2 mt-2">
                   <TextInput
                     type="number"
                     placeholder="0"
+                    value={minPrice ?? ""}
                     onChange={(e) =>
                       handleFilter(
                         undefined,
@@ -169,6 +206,7 @@ export default function Home() {
                   <TextInput
                     type="number"
                     placeholder="Max"
+                    value={maxPrice ?? ""}
                     onChange={(e) =>
                       handleFilter(
                         undefined,
