@@ -1,9 +1,12 @@
 # Product Page
 
 ## Start Project
-- git clone 
-- npm install
-
+```
+git clone https://github.com/viniarifianir16/assignment-fe-viniarifianirohmat.git
+npm install
+npm run dev
+```
+    
 ## Features
 - Search Product
 - Filter Category
